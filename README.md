@@ -9,7 +9,7 @@ Below gives an example of testimonials showing one on page load (first) before a
 JavaScript is executed. The plugin will then show/hide divs based on the data provided
 and the options set.
 
-'''html
+```html
 <html>
 <head>
 <style>
@@ -70,4 +70,4 @@ $(function() {
 
 </body>
 </html>
-'''
+```
