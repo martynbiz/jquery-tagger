@@ -23,7 +23,7 @@ $(function() {
                     data[field].toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'') :
                     "undefined";
 
-                queries.push('[data-tags*="' + options.fields[i] + '-' + value + '"]');
+                queries.push('[data-tagger*="' + options.fields[i] + '-' + value + '"]');
             }
         }
 
