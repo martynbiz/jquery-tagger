@@ -38,7 +38,7 @@ $(function() {
         }
 
         // we'll only re-arrange when there are matches
-        if (matches.length > 0) {
+        if (matches.length > 0 || !options.use_default) {
 
             // first off, hide all...
             $(selector).hide();

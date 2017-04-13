@@ -101,4 +101,28 @@ $(function() {
         // assertions
         assert.ok( $("#testimonials > div:visible").length === 0, "Passed!" );
     });
+
+    QUnit.test( "Test use_default=false hides all", function( assert ) {
+
+        setup();
+
+        // will show the first elements as a default element
+        // this is so that we can ensure that the use_default setting has hidden it
+        $("#testimonials > div").first().show();
+
+        var data = {
+            country: "GB",
+            language: "ja"
+        };
+
+        var options = {
+            fields: ["idontexist"],
+            use_default: true // this will ensure all are hidden
+        };
+
+        $("#testimonials > div").tagger(data, options);
+
+        // assertions
+        assert.ok( $("#testimonials > div:visible").length === 1, "Passed!" );
+    });
 })

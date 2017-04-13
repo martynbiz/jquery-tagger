@@ -18,10 +18,10 @@
             padding: 10px;
             margin-bottom: 1em;
 
-            display: none;
+            /*display: none;*/
         }
         #testimonials > div:first-child {
-            display: block;
+            /*display: block;*/
         }
         </style>
     </head>
@@ -30,7 +30,8 @@
             <div class="small-12 columns">
                 <h1>jQuery Tagger Plugin</h1>
 
-                <textarea id="response" rows="12" cols="50" style="font-family: courier"></textarea><br>
+                <label>Data from <a href="https://ipinfo.io">https://ipinfo.io</a> and window.navigator<br>
+                <textarea id="response" rows="12" cols="50" style="font-family: courier"></textarea></label>
 
                 <hr>
 
@@ -43,7 +44,9 @@
                         <label>OR <input type="radio" name="operator" value="OR" selected></label>
                     </fieldset>
 
-                    <label>limit: <input type="number" name="limit" value="10"></label><br>
+                    <label>limit: <input type="number" name="limit" value="10"></label>
+
+                    <label>use_default: <input type="checkbox" name="use_default"></label>
 
                     <button class="button" id="personalise-button">Personalise!</button>
                 </form>
@@ -94,12 +97,13 @@
             var fields = $("input[name='fields']").val().split(",");
             var operator = $("input[name='operator']:checked").val();
             var limit = parseInt($("input[name='limit']").val());
-            var default_limit = parseInt($("input[name='default_limit']").val());
+            var use_default = $("input[name='use_default']").is(':checked');
 
             $("#testimonials > div").tagger(data, {
                 fields: fields, // e.g. "country,language"
                 operator: operator, // e.g. "AND"
                 limit: limit, // e.g. 1
+                use_default: use_default
             });
 
             e.preventDefault();

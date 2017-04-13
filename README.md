@@ -60,6 +60,11 @@ data. If no matches are found, it will not show/hide any.
 
             // This is how many to display
             limit: 1,
+
+            // when set to true, it will leave the elements as they are if a match
+            // is not made. if false, the plugin will hide all elements when no match
+            // is made
+            use_default: true
         };
 
         $('#testimonials > div').tagger(data, options);
