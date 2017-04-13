@@ -5,11 +5,28 @@
     <meta name="viewport" content="width=device-width">
     <title>QUnit</title>
     <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.3.1.css">
+    <style>
+    #testimonials > div {
+        display: none;
+    }
+    </style>
 </head>
 <body>
+    <!-- test DOM -->
+    <div id="testimonials">
+        <div></div>
+        <div data-tags="country-japan,language-ja"></div>
+        <div data-tags="country-gb,city-stirling,language-en-gb"></div>
+        <div data-tags="country-gb,city-glasgow,language-en-gb"></div>
+    </div>
+
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
     <script src="https://code.jquery.com/qunit/qunit-2.3.1.js"></script>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="../tagger.jquery.js"></script>
+
     <script src="tests.js"></script>
 </body>
 </html>

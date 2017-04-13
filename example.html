@@ -1,0 +1,110 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=11" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="google-site-verification" content="hIahgI8cltjkZ_8UcNp8vY5JO3ZKV3QxDcSzEy59HD0" />
+        <!-- meta -->
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.css" />
+
+        <title>jQuery Tagger Plugin</title>
+
+        <style>
+        #testimonials > div {
+            border: 1px solid #ccc;
+            background: #eee;
+            padding: 10px;
+            margin-bottom: 1em;
+
+            display: none;
+        }
+        #testimonials > div:first-child {
+            display: block;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="row">
+            <div class="small-12 columns">
+                <h1>jQuery Tagger Plugin</h1>
+
+                <textarea id="response" rows="12" cols="50" style="font-family: courier"></textarea><br>
+
+                <hr>
+
+                <form>
+                    <label>fields: <input type="text" name="fields" value="country,language"></label>
+
+                    <fieldset>
+                        <legend>operator: </legend>
+                        <label>AND <input type="radio" name="operator" value="AND" checked></label>
+                        <label>OR <input type="radio" name="operator" value="OR" selected></label>
+                    </fieldset>
+
+                    <label>limit: <input type="number" name="limit" value="10"></label><br>
+
+                    <button class="button" id="personalise-button">Personalise!</button>
+                </form>
+
+                <div id="testimonials">
+                    <div>
+                        <blockquote>Default... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</blockquote>
+                    </div>
+                    <div data-tags="country-japan,language-ja">
+                        <blockquote>こんにちは Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</blockquote>
+                        <i>data-tags="country-japan,language-ja"</i>
+                    </div>
+                    <div data-tags="country-gb,city-stirling,language-en-gb">
+                        <blockquote>Hello chaps! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</blockquote>
+                        <i>data-tags="country-gb,city-stirling,language-en-gb"</i>
+                    </div>
+                    <div data-tags="country-gb,city-glasgow,language-en-gb">
+                        <blockquote>Awrite, bawbag! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</blockquote>
+                        <i>data-tags="country-gb,city-glasgow,language-en-gb"</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+
+        <script src="tagger.jquery.js"></script>
+
+        <script>
+
+        $(function() {
+
+            var response = {
+                language: window.navigator.userLanguage || window.navigator.language
+            };
+
+            // get client data from ipinfo.io
+            $.get("https://ipinfo.io", function(data) {
+                Object.assign(response, data);
+                $("#response").html(JSON.stringify(response, null, 4));
+            }, "jsonp");
+        });
+
+        $("#personalise-button").click(function(e) {
+
+            var data = JSON.parse($("#response").val());
+
+            var fields = $("input[name='fields']").val().split(",");
+            var operator = $("input[name='operator']:checked").val();
+            var limit = parseInt($("input[name='limit']").val());
+            var default_limit = parseInt($("input[name='default_limit']").val());
+
+            $("#testimonials > div").tagger(data, {
+                fields: fields, // e.g. "country,language"
+                operator: operator, // e.g. "AND"
+                limit: limit, // e.g. 1
+            });
+
+            e.preventDefault();
+        });
+
+        </script>
+    </body>
+</html>

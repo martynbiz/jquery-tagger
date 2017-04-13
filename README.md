@@ -50,18 +50,14 @@ $(function() {
         // these are the fields to query on. The two fields here used in combination
         // with the data will look for 'country-uk' and 'language-en-gb', but city
         // will not be queried as it is not included here
-        fields: ["country", language],
+        fields: ["country", "language"],
 
         // This determines whether to only show when all tags match (AND) or when
-        // at least one tag matches (OR). Also, matches can be inverted (NOR and NAND)
+        // at least one tag matches (OR).
         operator: "AND"
 
         // This is how many to display
         limit: 1,
-
-        // When no matches are present, show first n as default. Set to zero to
-        // leave as empty when no matches found.
-        default_limit: 1,
     };
 
     $('#testimonials > div').tagger(data, options);
@@ -71,3 +67,34 @@ $(function() {
 </body>
 </html>
 ```
+
+Note: comma separated selectors not supported (e.g. "#testimonials > div, #somethingelse > div"). Please
+make separate tagger() calls.
+
+## Location data example
+
+Below is an example of location data and language data being loaded into the plugin:
+
+```javascript
+$(function() {
+
+    var response = {
+        language: window.navigator.userLanguage || window.navigator.language
+    };
+
+    // get client data from ipinfo.io
+    $.get("https://ipinfo.io", function(data) {
+        Object.assign(response, data);
+
+        $("#testimonials > div").tagger({
+            fields: ["country", "city"],
+            operator: "AND",
+            limit: 3
+        });
+    }, "jsonp");
+});
+```
+
+## Tests
+
+Some qunit tests have been written and can be found in tests/ dir.
