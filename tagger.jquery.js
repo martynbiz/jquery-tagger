@@ -8,7 +8,13 @@ $(function() {
             limit: 99999999,
         }, options);
 
-        var selector = $(this).selector;
+        // selectors may be multiple separted by commas
+        var fullSelector = $(this).selector;
+        selector = fullSelector.split(",");
+
+        for(var i=0; i<selector.length; i++) selector[i] = selector[i].trim();
+
+        // this will be all the queries of fields and values
         var queries = [];
 
         var field, value;
@@ -28,25 +34,28 @@ $(function() {
         }
 
         // build query by operator, AND is default
-        var matches, queryStr;
+        var joinStr;
         if (options.operator === "OR") {
-            queryStr = selector + queries.join("," + selector);
-            matches = $(queryStr);
+            for(var i=0; i<selector.length; i++)
+                selector[i] = selector[i] + queries.join(", " + selector[i]);
         } else {
-            queryStr = selector + queries.join("");
-            matches = $(queryStr);
+            for(var i=0; i<selector.length; i++)
+                selector[i] = selector[i] + queries.join("");
         }
+
+        var queryStr = selector.join(", ");
+        var matches = $(queryStr);
 
         // we'll only re-arrange when there are matches
         if (matches.length > 0 || !options.use_default) {
 
             // first off, hide all...
-            $(selector).hide();
+            $(fullSelector).hide();
 
             // slice of matches
             matches.slice(0, options.limit).show();
         }
 
-        console.log(queries, queryStr);
+        console.log(queryStr);
     }
 });

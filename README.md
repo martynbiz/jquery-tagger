@@ -74,9 +74,6 @@ data. If no matches are found, it will not show/hide any.
 </html>
 ```
 
-Note: comma separated selectors not supported (e.g. "#testimonials > div, #somethingelse > div"). Please
-make separate tagger() calls.
-
 ## Location data example
 
 Below is an example of location data and language data being loaded into the plugin:
